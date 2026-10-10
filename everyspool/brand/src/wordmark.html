@@ -1,0 +1,18 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@96,700&display=block">
+<style>
+  body{margin:0;background:transparent}
+  .wm{display:inline-block;padding:24px 28px 30px;font:700 200px/1 'Bricolage Grotesque',sans-serif;letter-spacing:-.035em;white-space:nowrap;color:var(--ink)}
+  .wm svg{height:.6em;width:1.275em;vertical-align:-.07em;margin:0 .015em}
+  .flange{stroke:var(--ink)}
+</style></head>
+<body>
+<!-- Rendered to PNG by render.mjs. ?theme=dark switches colors. -->
+<span class="wm" id="wordmark">everysp<svg viewBox="0 0 136 64"><circle class="flange" cx="32" cy="32" r="30" fill="none" stroke-width="5"/><circle id="left" cx="32" cy="32" r="18" fill="none" stroke-width="14"/><circle class="flange" cx="104" cy="32" r="30" fill="none" stroke-width="5"/><circle cx="104" cy="32" r="18" fill="none" stroke="#F4B400" stroke-width="14"/></svg>l</span>
+<script>
+  const dark = new URLSearchParams(location.search).get("theme") === "dark";
+  document.documentElement.style.setProperty("--ink", dark ? "#F2F4F7" : "#172030");
+  document.getElementById("left").setAttribute("stroke", dark ? "#5B8CF0" : "#2F6FE4");
+</script>
+</body></html>

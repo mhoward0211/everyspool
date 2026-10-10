@@ -1,0 +1,36 @@
+# Renders the wordmark and social share image whenever the templates change,
+# then commits the PNGs back to the repo. Run it by hand from the Actions tab too.
+name: Render brand images
+
+on:
+  push:
+    branches: [main]
+    paths: ["brand/src/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - run: node brand/src/render.mjs
+      - name: Commit images
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898341+github-actions[bot]@users.noreply.github.com"
+          git add brand/*.png
+          git diff --cached --quiet || git commit -m "Render brand images"
+          git push
+      - name: Redeploy the site with the new images
+        run: gh workflow run deploy.yml --ref main
+        env:
+          GH_TOKEN: ${{ github.token }}

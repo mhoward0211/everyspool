@@ -1,0 +1,24 @@
+name: Add or correct a material
+description: A filament that's missing, or a density that looks wrong
+labels: [materials]
+body:
+  - type: input
+    id: material
+    attributes:
+      label: Material name
+      placeholder: e.g. PETG-CF
+    validations:
+      required: true
+  - type: input
+    id: density
+    attributes:
+      label: Density (g/cm³)
+      description: Usually on the manufacturer's spec sheet or spool label.
+      placeholder: e.g. 1.29
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Where did this number come from?
+      placeholder: Link to a spec sheet or product page
