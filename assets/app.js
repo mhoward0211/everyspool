@@ -2,7 +2,7 @@
 // Leave a link as "" to hide its button.
 const SITE = {
   repo: "mhoward0211/everyspool",           // your GitHub username/repo
-  tipUrl: "https://ko-fi.com/YOURNAME",  // your Ko-fi page
+  tipUrl: "https://ko-fi.com/everyspool",  // your Ko-fi page
   shopUrl: "",                           // Amazon link, added after approval
 };
 
