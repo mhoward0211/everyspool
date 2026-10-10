@@ -1,0 +1,22 @@
+name: Report a wrong result
+description: The calculator gave a number that doesn't look right
+labels: [bug]
+body:
+  - type: input
+    id: link
+    attributes:
+      label: Share link
+      description: Click "Copy share link" on the calculator and paste it here so we see exactly what you entered.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect, and what did it show?
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and browser
+      placeholder: e.g. iPhone 15, Safari
