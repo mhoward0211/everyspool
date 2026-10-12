@@ -46,6 +46,12 @@
           <legend><h2>Your prints</h2></legend>
           <div id="jobs"></div>
           <button type="button" class="btn" id="addJob">Add another print</button>
+           <div class="dropzone" id="dropzone">
+            <input type="file" id="fileInput" multiple hidden>
+            <button type="button" class="btn" id="chooseFile" data-goatcounter-click="file-upload">Add from a sliced file</button>
+            <span>or drop G-code or 3MF files here. They stay on your device.</span>
+          </div>
+          <p class="hint" id="uploadStatus" aria-live="polite"></p>
           <p class="hint">Your slicer shows filament use after slicing, in grams or meters.</p>
         </fieldset>
 
@@ -143,5 +149,7 @@
   <script src="assets/materials.js"></script>
   <script src="assets/calc.js"></script>
   <script src="assets/app.js"></script>
+  <script src="assets/slicer.js"></script>
+  <script src="assets/upload.js"></script>
 </body>
 </html>
