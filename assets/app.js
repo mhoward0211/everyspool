@@ -51,15 +51,37 @@ function money(amount) {
 
 // ===== Remembering settings =====
 
+/// Throws away anything in saved or shared settings that doesn't look right,
+// so a broken or tampered share link can't break the page.
+function clean(saved) {
+  const s = { ...structuredClone(DEFAULTS), ...saved };
+
+  if (!Array.isArray(s.jobs) || s.jobs.length === 0) s.jobs = structuredClone(DEFAULTS.jobs);
+  s.jobs = s.jobs.slice(0, 50).map((job) => ({
+    name: String(job?.name ?? "").slice(0, 80),
+    amount: String(job?.amount ?? ""),
+    unit: job?.unit === "m" ? "m" : "g",
+  }));
+
+  if (!/^#[0-9a-f]{6}$/i.test(s.color)) s.color = DEFAULTS.color;
+  if (!["USD", "EUR", "GBP", "CAD", "AUD"].includes(s.currency)) s.currency = DEFAULTS.currency;
+  if (!["1.75", "2.85"].includes(s.diameter)) s.diameter = DEFAULTS.diameter;
+  if (s.spool !== "custom" && !SPOOL_SIZES.includes(parseFloat(s.spool))) s.spool = DEFAULTS.spool;
+  for (const key of ["material", "spool", "customKg", "price", "waste", "onHand"]) {
+    s[key] = String(s[key] ?? "").slice(0, 40);
+  }
+  return s;
+}
+
 // Picks starting values: a share link first, then the last visit, then the defaults.
 function load() {
   try {
     const shared = new URLSearchParams(location.search).get("s");
-    if (shared) return { ...structuredClone(DEFAULTS), ...JSON.parse(shared) };
+    if (shared) return clean(JSON.parse(shared));
   } catch (e) {}
   try {
     const saved = localStorage.getItem("everyspool");
-    if (saved) return { ...structuredClone(DEFAULTS), ...JSON.parse(saved) };
+    if (saved) return clean(JSON.parse(saved));
   } catch (e) {}
   return structuredClone(DEFAULTS);
 }

@@ -125,6 +125,9 @@ async function addFromFiles(files) {
       found = [];
     }
 
+     // Ignore impossible amounts (over 100 kg) from damaged or tampered files.
+    found = found.filter((print) => print.grams < 100000 && print.meters < 30000);
+
     if (found.length) {
       found.forEach(addPrintFromFile);
       notes.push(`Added ${file.name}.`);
