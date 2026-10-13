@@ -41,7 +41,7 @@ jobs:
           mkdir -p _site/brand
           cp -r index.html privacy.html roadmap.html site.webmanifest assets _site/
           cp brand/*.svg brand/*.png brand/*.ico _site/brand/
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v3
       - id: deployment
         uses: actions/deploy-pages@v4
