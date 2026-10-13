@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roadmap | EverySpool</title>
+  <meta name="description" content="What's been built, what's being worked on, and what's coming next for EverySpool.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700&display=swap">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="icon" href="brand/favicon.ico" sizes="32x32">
+  <link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="brand/apple-touch-icon.png">
+</head>
+<body>
+  <div class="wrap">
+    <a class="logo" href="./" aria-label="EverySpool home">everysp<svg viewBox="0 0 136 64" aria-hidden="true">
+        <circle class="flange" cx="32" cy="32" r="30" fill="none" stroke-width="5"/>
+        <circle class="fil-a" cx="32" cy="32" r="18" fill="none" stroke-width="14"/>
+        <circle class="flange" cx="104" cy="32" r="30" fill="none" stroke-width="5"/>
+        <circle cx="104" cy="32" r="18" fill="none" stroke="#F4B400" stroke-width="14"/>
+      </svg>l</a>
+
+    <header>
+      <h1>Roadmap</h1>
+      <p>What's built, what's being worked on, and what's coming. Plans change as people share what they need.</p>
+    </header>
+
+    <main class="roadmap" id="roadmap"></main>
+
+    <section class="panel suggest">
+      <h2>Have an idea?</h2>
+      <p>The best features come from people using EverySpool. Tell us what would help you.</p>
+      <a class="btn primary" id="suggest" target="_blank" rel="noopener">Suggest a feature</a>
+    </section>
+
+    <footer>
+      <span><a href="./">Back to the calculator</a> · <a href="privacy.html">Privacy</a></span>
+    </footer>
+  </div>
+
+  <script src="assets/roadmap.js"></script>
+  <script>
+    // Same as SITE.repo in app.js
+    const REPO = "mhoward0211/everyspool";
+
+    const COLUMNS = [
+      { status: "now", title: "In progress" },
+      { status: "next", title: "Up next" },
+      { status: "later", title: "Later" },
+      { status: "done", title: "Done" },
+    ];
+
+    const esc = (text) => String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+
+    document.getElementById("roadmap").innerHTML = COLUMNS.map((column) => {
+      const items = ROADMAP.filter((item) => item.status === column.status);
+      if (!items.length) return "";
+      const cards = items.map((item) => `
+        <li class="card">
+          <h3>${esc(item.title)}</h3>
+          <p>${esc(item.text)}</p>
+          ${item.when ? `<p class="when">${esc(item.when)}</p>` : ""}
+        </li>`).join("");
+      return `
+        <section class="column ${column.status}">
+          <h2>${column.title} <span class="count">${items.length}</span></h2>
+          <ul>${cards}</ul>
+        </section>`;
+    }).join("");
+
+    document.getElementById("suggest").href = `https://github.com/${REPO}/issues/new/choose`;
+  </script>
+</body>
+</html>
